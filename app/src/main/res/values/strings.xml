@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">SPM</string>
+    <string name="title_activity_main">SQM</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+
+    <array name="tv_plans">
+        <item>40 Canales básicos</item>
+        <item>80 Canales + 20 HD</item>
+    </array>
+
+    <array name="phone_plans">
+        <item>Ilimitado</item>
+        <item>350 minutos</item>
+    </array>
+
+    <array name="net_plans">
+        <item>20 Megas</item>
+        <item>80 Megas</item>
+    </array>
+</resources>

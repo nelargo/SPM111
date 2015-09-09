@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:paddingRight="@dimen/abc_dialog_padding_material"
+    android:paddingLeft="@dimen/abc_dialog_padding_material">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:gravity="bottom"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="PLANES"
+            android:id="@+id/textView3"
+            android:textSize="32sp"
+            android:gravity="bottom|center_horizontal"
+            android:textColor="@color/border"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/border"></LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="16"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@drawable/panel"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="4dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="TV"
+                android:id="@+id/b_tv"
+                android:layout_weight="1"
+                android:background="@drawable/button_tv"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_tv" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="TV+INTERNET"
+                android:id="@+id/b_tv_internet"
+                android:layout_weight="2"
+                android:background="@drawable/button_tv_internet"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_tv_internet" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="INTERNET"
+                android:id="@+id/b_internet"
+                android:layout_weight="1"
+                android:background="@drawable/button_internet"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_internet" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="INTERNET+TELEFONO"
+                android:id="@+id/b_internet_telefono"
+                android:layout_weight="2"
+                android:background="@drawable/button_internet_telefono"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_internet_telefono" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" >
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="TELÉFONO"
+                android:id="@+id/b_telefono"
+                android:layout_weight="1"
+                android:background="@drawable/button_telefono"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_telefono" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="TELÉFONO+TV"
+                android:id="@+id/b_telefono_tv"
+                android:layout_weight="2"
+                android:background="@drawable/button_telefono_tv"
+                android:layout_marginBottom="4dp"
+                android:layout_marginLeft="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_telefono_tv" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical|center_horizontal">
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="TV+INTERNET+TELÉFONO"
+                android:id="@+id/b_all"
+                android:layout_weight="1"
+                android:background="@drawable/button_tv_internet_telefono"
+                android:layout_marginBottom="4dp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:textSize="12dp"
+                android:onClick="form_all" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center_horizontal" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/border" />
+
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <ImageButton
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:id="@+id/ib_back"
+                android:background="@drawable/button_round_blue"
+                android:src="@drawable/ic_action_atras"
+                android:layout_weight="1"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="false"
+                android:layout_alignParentBottom="false"
+                android:layout_centerVertical="true" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView10"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/logo_footer" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" useUTFGuessing="false" native2AsciiForPropertiesFiles="false">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/DetalleCliente.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/FormValidacionAuditiva.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/FormValidacionVisual.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/Form_Cliente.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/Planes.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/Principal.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/felipe/cl/spm/actividades/extras/WSManager.java" charset="UTF-8" />
+    <file url="PROJECT" charset="windows-1252" />
+  </component>
+</project>
+

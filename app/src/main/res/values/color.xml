@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#ff989898</color>
+    <color name="disabled">#ff929393</color>
+    <color name="primaryDark">#ff1a1a1a</color>
+    <color name="primaryLight">#00DDDD</color>
+    <color name="border">#FFFFFF</color>
+    <color name="background">#ff989898</color>
+    <color name="backgroundDark">#aaaaaa</color>
+    <color name="translucentbackground">#70000000</color>
+    <color name="color_1">#ff005c94</color>
+    <color name="color_1_pressed">#ff007fc6</color>
+    <color name="color_2">#ff7fa0d0</color>
+    <color name="color_2_pressed">#ff92baea</color>
+    <color name="color_3">#ff67589b</color>
+    <color name="color_3_pressed">#ff8372c0</color>
+    <color name="color_4">#ff0098cc</color>
+    <color name="color_4_pressed">#ff00baf3</color>
+    <color name="color_5">#ff00676d</color>
+    <color name="color_5_pressed">#ff00a5ae</color>
+    <color name="color_6">#ff799896</color>
+    <color name="color_6_pressed">#ffacd6d4</color>
+    <color name="color_7">#ff38a862</color>
+    <color name="color_7_pressed">#ff43c673</color>
+    <color name="color_red">#ffbd0a26</color>
+    <color name="color_red_pressed">#ffec0a29</color>
+    <color name="color_blue">#ff0b72b4</color>
+    <color name="color_blue_pressed">#ff0b8edf</color>
+    <color name="color_black">#ff333333</color>
+    <color name="color_black_pressed">#ff6e6e6e</color>
+    <color name="color_ok">#ff5a9d93</color>
+    <color name="color_nok">#ffbf001f</color>
+</resources>

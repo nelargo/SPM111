@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="felipe.cl.spm" >
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+    <activity
+        android:name=".actividades.Principal"
+        android:screenOrientation="portrait">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+        </intent-filter>
+    </activity>
+
+        <activity android:name=".actividades.DetalleCliente" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.Servicios" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.Planes" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.Form_Cliente" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.FormProductos" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.FormContrato" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.FormCuenta" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.FormValidacionVisual" android:screenOrientation="portrait"/>
+        <activity android:name=".actividades.FormValidacionAuditiva" android:screenOrientation="portrait"/>
+
+    </application>
+
+</manifest>
