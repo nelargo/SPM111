@@ -1,8 +1,11 @@
 package felipe.cl.spm.actividades;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
@@ -17,8 +20,18 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Random;
 
 import felipe.cl.spm.R;
@@ -35,7 +48,7 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
     SeekBar playProgress;
     TextView duration_reprod, record_time, state_record;
     long startRecording = 0;
-
+    boolean asd = false;
 
     private static final String AUDIO_RECORDER_FILE_EXT_3GP = ".3gp";
     private static final String AUDIO_RECORDER_FILE_EXT_MP3 = ".mp3";
@@ -45,16 +58,19 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
     private int output_formats[] = { MediaRecorder.OutputFormat.MPEG_4,             MediaRecorder.OutputFormat.THREE_GPP };
     private String file_exts[] = { AUDIO_RECORDER_FILE_EXT_MP3, AUDIO_RECORDER_FILE_EXT_3GP };
     private String FILENAME;
+    private String NAME;
     private File file;
     private MediaPlayer mp;
     private Utilities utils;
     private Handler mHandler = new Handler();
+    String rut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.frag_form_validacion_auditiva);
 
+        rut = getIntent().getStringExtra("RUT");
         mContext = this;
         playProgress = (SeekBar)findViewById(R.id.seekBar);
         playProgress.setEnabled(false);
@@ -90,6 +106,7 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
                         mHandler.removeCallbacks(mUpdateRecStateTask);
                         record_time.setText("");
                         state_record.setText("");
+                        asd = true;
                         stopRecording();
                         break;
                 }
@@ -106,11 +123,12 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
             finish();
         }
         if (v.getId() == R.id.ib_save) {
-            CustomStateDialog t = new CustomStateDialog(this, R.drawable.ic_state_ok, "REGISTRO INGRESADO EXISTOSAMENTE", Constantes.STATE_OK);
-            t.setCanceledOnTouchOutside(true);
-            t.show();
-            TimeoutOperation async = new TimeoutOperation(t);
-            async.execute();
+            if(asd) {
+                UploadImage up = new UploadImage(mContext, null, FILENAME, NAME);
+                up.execute();
+            }else{
+                Toast.makeText(mContext, "Debe grabar la declaracion", Toast.LENGTH_LONG).show();
+            }
         }
         if(v.getId() == R.id.ib_play_recorded){
             if(file.exists() && !playing){
@@ -118,6 +136,159 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
                 audioPlayer(FILENAME);
             }
         }
+    }
+
+    private class UploadImage extends AsyncTask<String, String, String> {
+
+        private Context mContext;
+        ProgressDialog dialog;
+        View view;
+        String path;
+        String name;
+        int flag= 0;
+
+        public UploadImage(Context mContext, View v, String path, String n) {
+            name = n;
+            this.path = path;
+            this.view = v;
+            this.mContext = mContext;
+        }
+
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            dialog.setMessage(values[0]);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            String response = "";
+
+
+            try {
+                String fileName = name;
+
+                publishProgress(fileName);
+                Log.i("ENVIANDO", fileName);
+                HttpURLConnection conn;
+                DataOutputStream dos;
+                String lineEnd = "\r\n";
+                String twoHyphens = "--";
+                String boundary = "*****";
+                int bytesRead, bytesAvailable, bufferSize;
+
+                File done = new File(path);
+
+
+                if (!done.isFile())
+                    Log.e("DownloadManager", "no existe");
+                else {
+                    FileInputStream fileInputStream = new FileInputStream(done);
+                    URL url = new URL("http://madgoatstd.com/SPM/upper.php");
+
+                    conn = (HttpURLConnection) url.openConnection();
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+                    conn.setUseCaches(false);
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Connection", "Keep-Alive");
+                    //conn.setRequestProperty("ENCTYPE", "multipart/form-data");
+                    conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                    //conn.setRequestProperty("uploadedfile", fileName);
+
+                    dos = new DataOutputStream(conn.getOutputStream());
+
+                    dos.writeBytes(twoHyphens + boundary + lineEnd);
+                    dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\"" + fileName + "\"" + lineEnd);
+                    dos.writeBytes(lineEnd);
+
+                    bytesAvailable = fileInputStream.available();
+
+                    bufferSize = Math.min(bytesAvailable, 1 * 1024 * 1024);
+                    byte[] buf = new byte[bufferSize];
+
+                    bytesRead = fileInputStream.read(buf, 0, bufferSize);
+
+                    while (bytesRead > 0) {
+
+                        dos.write(buf, 0, bufferSize);
+                        bytesAvailable = fileInputStream.available();
+                        bufferSize = Math.min(bytesAvailable, 1 * 1024 * 1024);
+                        bytesRead = fileInputStream.read(buf, 0, bufferSize);
+
+                    }
+
+                    dos.writeBytes(lineEnd);
+                    dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+                    int serverResponseCode = conn.getResponseCode();
+                    String serverResponseMessage = conn.getResponseMessage();
+
+
+                    Log.i("UploadManager", "HTTP response is: " + serverResponseMessage + ": " + serverResponseCode);
+
+                    fileInputStream.close();
+                    dos.flush();
+                    dos.close();
+
+                    InputStream responseStream = new BufferedInputStream(conn.getInputStream());
+
+                    BufferedReader responseStreamReader = new BufferedReader(new InputStreamReader(responseStream));
+                    String line = "";
+                    StringBuilder stringBuilder = new StringBuilder();
+                    while ((line = responseStreamReader.readLine()) != null) {
+                        stringBuilder.append(line).append("\n");
+                    }
+                    responseStreamReader.close();
+
+                    response = stringBuilder.toString();
+
+                    if (response.contains("<MESSAGE>OK</MESSAGE>")) {
+                        Log.d("ENVIANDO", "OK");
+                    } else {
+                        Log.d("ENVIANDO", "NOK");
+                    }
+                }
+
+
+            } catch (Exception e) {
+                Log.d("TAG", "Error: " + e.getMessage());
+                response = "ERROR";
+            }
+
+            return response;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            dialog = new ProgressDialog(mContext);
+            dialog.setTitle("Subiendo Archivo de Audio");
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            if (dialog.isShowing())
+                dialog.dismiss();
+            CustomStateDialog t = new CustomStateDialog(mContext, R.drawable.ic_state_ok, "REGISTRO INGRESADO EXISTOSAMENTE", Constantes.STATE_OK);
+            t.setCanceledOnTouchOutside(true);
+            t.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialogInterface) {
+                    try{
+                        Planes.activity.finish();
+                        FormValidacionVisual.activity.finish();
+                        ((Activity)mContext).finish();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }
+            });
+            t.show();
+
+        }
+
+
     }
 
     private class TimeoutOperation extends AsyncTask<String, Void, Void> {
@@ -156,7 +327,8 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
         if(!file.exists()){
             file.mkdirs();
         }
-        FILENAME = file.getAbsolutePath() + "/" + "respuesta" + file_exts[currentFormat];
+        NAME = rut+"_respuesta" + file_exts[currentFormat];
+        FILENAME = file.getAbsolutePath() + "/" + NAME;
 
         return (FILENAME);
     }
@@ -175,6 +347,7 @@ public class FormValidacionAuditiva extends Activity implements View.OnClickList
                 @Override
                 public void onCompletion(MediaPlayer mp) {
                     playing = false;
+
                 }
             });
 

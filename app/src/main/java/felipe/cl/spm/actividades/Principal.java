@@ -91,11 +91,12 @@ public class Principal extends Activity implements View.OnClickListener {
                                 b.show();
                                 return;
                             }
-                            if (cliente.estadoActual.equals("OK")) {
+                            if (cliente.estadoActual.equals("OK") || cliente.estadoActual.equals("PENDIENTE")) {
                                     Intent n = new Intent(Principal.this, DetalleCliente.class);
                                     n.putExtra("RUT", rut);
                                     startActivity(n);
-                            } else if (cliente.estadoActual.equals("MORA")){
+                            }
+                            if (cliente.estadoActual.equals("MORA")){
                                 CustomStateDialog d = new CustomStateDialog(mContext, R.drawable.ic_state_nok, "Cliente Moroso", Constantes.STATE_NOK);
 
                                 d.show();
